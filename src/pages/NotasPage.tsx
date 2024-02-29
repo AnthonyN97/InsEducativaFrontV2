@@ -1,19 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Nota } from "../types/Nota";
+import { getNotas } from "../services/NotasApi";
 
 const NotasPage = () => {
-    const [datos, setDatos] = useState([{
-        "estudiante": "",
-        "curso": "",
-        "nota": "",
-    }]);
+    const [datos, setDatos] = useState<Nota[]>([]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/nota')
-            .then(response => {
-                setDatos(response.data);
-                console.log(response)
-            });
+        getNotas().then(data => setDatos(data)).catch(error => console.log(error));
     }, []);
 
     return (
@@ -47,6 +41,12 @@ const NotasPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
+                                            Porcentaje
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
+                                        >
                                             Editar
                                         </th>
                                         <th
@@ -68,6 +68,9 @@ const NotasPage = () => {
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
                                                 {dato.nota}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
+                                                {dato.porcentaje}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <a className="text-green-500 hover:text-green-700" href="#">

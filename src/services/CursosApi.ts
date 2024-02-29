@@ -10,3 +10,13 @@ export const getCursos = async (): Promise<Curso[]> => {
     throw error;
   }
 }
+
+export const postEstudiante = async (curso: Curso): Promise<Curso> => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/curso', curso);
+    return response.data as Curso;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

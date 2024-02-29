@@ -3,15 +3,13 @@ import { useEffect, useState } from "react";
 
 const NotasPage = () => {
     const [datos, setDatos] = useState([{
-        "id": "",
-        "nombre": "",
-        "sexo": "",
-        "fecha_nacimiento": "",
-        "tipo_sangre": ""
+        "estudiante": "",
+        "curso": "",
+        "nota": "",
     }]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/notas')
+        axios.get('http://127.0.0.1:8000/nota')
             .then(response => {
                 setDatos(response.data);
                 console.log(response)
@@ -31,37 +29,31 @@ const NotasPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Nombre
+                                            Estudiante
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Sexo
+                                            Curso
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Fecha de Nacimiento
+                                            Nota
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Tipo de Sangre
+                                            Editar
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Edit
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Delete
+                                            Eliminar
                                         </th>
                                     </tr>
                                 </thead>
@@ -69,16 +61,13 @@ const NotasPage = () => {
                                     {datos.map((dato: any, index: number) => (
                                         <tr key={index}>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-left ">
-                                                {dato.nombre}
+                                                {dato.estudiante}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.sexo}
+                                                {dato.curso}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.fecha_nacimiento}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.tipo_sangre}
+                                                {dato.nota}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <a className="text-green-500 hover:text-green-700" href="#">

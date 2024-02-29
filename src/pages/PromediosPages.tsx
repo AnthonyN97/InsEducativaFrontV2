@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Estudiante } from "../types/Estudiante";
-import { getEstudiantes } from "../services/EstudiantesApi";
+import { Promedios } from "../types/Promedios";
+import { getPromedios } from "../services/PromediosApi";
 
-const EstudiantesPage = () => {
-    const [datos, setDatos] = useState<Estudiante[]>([]);
+const PromediosPage = () => {
+    const [datos, setDatos] = useState<Promedios[]>([]);
 
     useEffect(() => {
-        getEstudiantes().then(data => setDatos(data)).catch(error => console.log(error));
+        getPromedios().then(data => setDatos(data)).catch(error => console.log(error));
     }, []);
+
     return (
         <>
             <div className="flex flex-col p-5">
@@ -22,25 +23,19 @@ const EstudiantesPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Nombre
+                                            Estudiante
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Sexo
+                                            Promedio
                                         </th>
                                         <th
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Fecha de Nacimiento
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Tipo de Sangre
+                                            Curso
                                         </th>
                                         <th
                                             scope="col"
@@ -60,16 +55,13 @@ const EstudiantesPage = () => {
                                     {datos.map((dato: any, index: number) => (
                                         <tr key={index}>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-left ">
-                                                {dato.nombre}
+                                                {dato.estudiante}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.sexo}
+                                                {dato.promedio}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.fecha_nacimiento}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.tipo_sangre}
+                                                {dato.curso}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <a className="text-green-500 hover:text-green-700" href="#">
@@ -93,4 +85,4 @@ const EstudiantesPage = () => {
     );
 }
 
-export default EstudiantesPage;
+export default PromediosPage;

@@ -1,16 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Estudiante } from "../types/Estudiante";
-import { getEstudiantes } from "../services/EstudiantesApi";
+import { Curso } from "../types/Curso";
+import { getCursos } from "../services/CursosApi";
 
-const EstudiantesPage = () => {
-    const [datos, setDatos] = useState<Estudiante[]>([]);
+const CursosPage = () => {
+    const [datos, setDatos] = useState<Curso[]>([]);
 
     useEffect(() => {
-        getEstudiantes().then(data => setDatos(data)).catch(error => console.log(error));
+        getCursos().then(data => setDatos(data)).catch(error => console.log(error));
+        
     }, []);
     return (
         <>
+        {console.log(datos)}
             <div className="flex flex-col p-5">
                 <div className="overflow-x-auto">
                     <div className="p-1.5 w-full inline-block align-middle">
@@ -28,19 +29,7 @@ const EstudiantesPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
-                                            Sexo
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Fecha de Nacimiento
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Tipo de Sangre
+                                            Estudiantes
                                         </th>
                                         <th
                                             scope="col"
@@ -63,13 +52,7 @@ const EstudiantesPage = () => {
                                                 {dato.nombre}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.sexo}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.fecha_nacimiento}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
-                                                {dato.tipo_sangre}
+                                                {dato.estudiantes}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <a className="text-green-500 hover:text-green-700" href="#">
@@ -93,4 +76,4 @@ const EstudiantesPage = () => {
     );
 }
 
-export default EstudiantesPage;
+export default CursosPage;

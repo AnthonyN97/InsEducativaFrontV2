@@ -1,16 +1,45 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Estudiante } from "../types/Estudiante";
-import { getEstudiantes } from "../services/EstudiantesApi";
+import Formulario from "../components/Formulario";
+import { EstudianteService } from "../services/EstudiantesApi";
+import EstudianteForm from "../components/EstudianteForm";
+import { toast } from "react-toastify";
 
 const EstudiantesPage = () => {
     const [datos, setDatos] = useState<Estudiante[]>([]);
+    const [open, setOpen] = useState<boolean>(false);
+    const [estudianteEditar, setEstudianteEditar] = useState<Estudiante | null>(null);
 
     useEffect(() => {
-        getEstudiantes().then(data => setDatos(data)).catch(error => console.log(error));
-    }, []);
+        EstudianteService.getEstudiantes().then((data) => setDatos(data));
+    }, [open]);
+
+    const handleDelete = (id: string) => {
+        EstudianteService.deleteEstudiantes(id)
+          .then(response => {
+            console.log(response);
+            toast.success('El estudiante ha sido eliminado con éxito!');
+            EstudianteService.getEstudiantes().then((data) => setDatos(data));
+          })
+          .catch(error => {
+            console.error(error);
+            toast.error('Hubo un error al eliminar el estudiante');
+          });
+      };
+
     return (
         <>
+            <div className="p-10 flex justify-center w-full">
+                <button
+                    className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white "
+                    onClick={() => setOpen(true)}
+                >
+                    Open
+                </button>
+                <Formulario open={open} onClose={() => setOpen(false)}>
+                    <EstudianteForm open={open} estudiante={estudianteEditar} onClose={() => setOpen(false)}/>
+                </Formulario>
+            </div>
             <div className="flex flex-col p-5">
                 <div className="overflow-x-auto">
                     <div className="p-1.5 w-full inline-block align-middle">
@@ -72,14 +101,14 @@ const EstudiantesPage = () => {
                                                 {dato.tipo_sangre}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
-                                                <a className="text-green-500 hover:text-green-700" href="#">
+                                                <button className="text-green-500 hover:text-green-700" onClick={()=>{setEstudianteEditar(dato); setOpen(true);}}>
                                                     Edit
-                                                </a>
+                                                </button>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
-                                                <a className="text-red-500 hover:text-red-700" href="#">
+                                                <button className="text-red-500 hover:text-red-700" onClick={() => handleDelete(dato.id)}>
                                                     Delete
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
@@ -91,6 +120,7 @@ const EstudiantesPage = () => {
             </div>
         </>
     );
-}
+};
+
 
 export default EstudiantesPage;

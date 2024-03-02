@@ -32,9 +32,9 @@ const EstudiantesPage = () => {
             <div className="p-10 flex justify-center w-full">
                 <button
                     className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white "
-                    onClick={() => setOpen(true)}
+                    onClick={() => {setOpen(true); setEstudianteEditar(null)}}
                 >
-                    Open
+                    Crear Estudiante
                 </button>
                 <Formulario open={open} onClose={() => setOpen(false)}>
                     <EstudianteForm open={open} estudiante={estudianteEditar} onClose={() => setOpen(false)}/>

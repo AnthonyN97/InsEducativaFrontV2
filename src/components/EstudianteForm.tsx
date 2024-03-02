@@ -101,7 +101,7 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
             <div className="flex flex-col justify-center">
 
                 <button onClick={() => { onClose(); limpiar(); }} className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                    Close
+                    Cerrar
                 </button>
             </div>
         </div>

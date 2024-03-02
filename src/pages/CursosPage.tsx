@@ -32,9 +32,9 @@ const CursosPage = () => {
         <div className="p-10 flex justify-center w-full">
                 <button
                     className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white "
-                    onClick={() => setOpen(true)}
+                    onClick={() => {setOpen(true); setCursoEditar(null)}}
                 >
-                    Open
+                    Crear Curso
                 </button>
                 <Formulario open={open} onClose={() => setOpen(false)}>
                     <CursoForm open={open} curso={cursoEditar} onClose={() => setOpen(false)}/>

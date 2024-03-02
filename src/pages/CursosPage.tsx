@@ -1,17 +1,45 @@
 import { useEffect, useState } from "react";
 import { Curso } from "../types/Curso";
-import { getCursos } from "../services/CursosApi";
+import { CursoService } from "../services/CursosApi";
+import { toast } from "react-toastify";
+import Formulario from "../components/Formulario";
+import CursoForm from "../components/CursoForm";
 
 const CursosPage = () => {
     const [datos, setDatos] = useState<Curso[]>([]);
+    const [open, setOpen] = useState<boolean>(false);
+    const [cursoEditar, setCursoEditar] = useState<Curso | null>(null);
 
     useEffect(() => {
-        getCursos().then(data => setDatos(data)).catch(error => console.log(error));
-        
-    }, []);
+        CursoService.getCurso().then(data => setDatos(data)).catch(error => console.log(error));
+    }, [open]);
+
+    const handleDelete = (id: string) => {
+        CursoService.deleteCurso(id)
+          .then(response => {
+            console.log(response);
+            toast.success('El curso ha sido eliminado con éxito!');
+            CursoService.getCurso().then((data) => setDatos(data));
+          })
+          .catch(error => {
+            console.error(error);
+            toast.error('Hubo un error al eliminar el curso');
+          });
+      };
+
     return (
         <>
-        {console.log(datos)}
+        <div className="p-10 flex justify-center w-full">
+                <button
+                    className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white "
+                    onClick={() => setOpen(true)}
+                >
+                    Open
+                </button>
+                <Formulario open={open} onClose={() => setOpen(false)}>
+                    <CursoForm open={open} curso={cursoEditar} onClose={() => setOpen(false)}/>
+                </Formulario>
+            </div>
             <div className="flex flex-col p-5">
                 <div className="overflow-x-auto">
                     <div className="p-1.5 w-full inline-block align-middle">
@@ -55,14 +83,14 @@ const CursosPage = () => {
                                                 {dato.estudiantes}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
-                                                <a className="text-green-500 hover:text-green-700" href="#">
-                                                    Edit
-                                                </a>
+                                                <button className="text-green-500 hover:text-green-700" onClick={()=>{setCursoEditar(dato); setOpen(true);}}>
+                                                    Editar
+                                                </button>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
-                                                <a className="text-red-500 hover:text-red-700" href="#">
+                                                <button className="text-red-500 hover:text-red-700" onClick={() => handleDelete(dato.id)}>
                                                     Delete
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

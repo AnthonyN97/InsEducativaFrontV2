@@ -102,12 +102,12 @@ const EstudiantesPage = () => {
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <button className="text-green-500 hover:text-green-700" onClick={()=>{setEstudianteEditar(dato); setOpen(true);}}>
-                                                    Edit
+                                                    Editar
                                                 </button>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
                                                 <button className="text-red-500 hover:text-red-700" onClick={() => handleDelete(dato.id)}>
-                                                    Delete
+                                                    Eliminar
                                                 </button>
                                             </td>
                                         </tr>

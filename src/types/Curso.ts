@@ -1,9 +1,13 @@
+export interface Estudiante {
+  id: string;
+  nombre: string;
+}
+
 export interface Curso {
   id: string;
   nombre: string;
-  estudiantes: string[];
+  estudiantes: Estudiante[];
 }
-
 export interface CursoPost {
   nombre: string;
   estudiantes: string[];

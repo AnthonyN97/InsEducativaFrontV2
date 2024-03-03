@@ -9,7 +9,7 @@ import Header from './components/Header'; // Asegúrate de importar tu component
 function App() {
   return (
     <Router>
-      <Header /> {/* Aquí incluyes el Header */}
+      <Header />
       <Routes>
         <Route path="/" element={<EstudiantesPage />} />
         <Route path="/notas" element={<NotasPage />} />

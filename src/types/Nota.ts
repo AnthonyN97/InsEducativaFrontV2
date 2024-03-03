@@ -2,6 +2,7 @@ export interface Nota {
     id: string;
     estudiante_id: string;
     estudiante: string;
+    curso_id: number;
     curso: string;
     nota: number;
     porcentaje: number;
@@ -9,7 +10,7 @@ export interface Nota {
 
 export interface NotaPost {
     estudiante: string;
-    curso: string;
+    curso: number;
     nota: number;
     porcentaje: number;
   }

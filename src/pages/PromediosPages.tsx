@@ -1,18 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Promedios } from "../types/Promedios";
-import { getPromedios } from "../services/PromediosApi";
+import { PromedioService } from "../services/PromediosApi";
 
 const PromediosPage = () => {
     const [datos, setDatos] = useState<Promedios[]>([]);
 
     useEffect(() => {
-        getPromedios().then(data => setDatos(data)).catch(error => console.log(error));
+        PromedioService.getPromedio().then(data => setDatos(data)).catch(error => console.log(error));
     }, []);
 
     return (
         <>
-            <div className="flex flex-col p-5">
+            <div className="flex flex-col p-5 mx-5">
                 <div className="overflow-x-auto">
                     <div className="p-1.5 w-full inline-block align-middle">
                         <div className="overflow-x-auto border rounded-lg">
@@ -37,18 +36,6 @@ const PromediosPage = () => {
                                         >
                                             Curso
                                         </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Editar
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
-                                        >
-                                            Eliminar
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
@@ -62,16 +49,6 @@ const PromediosPage = () => {
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
                                                 {dato.curso}
-                                            </td>
-                                            <td className="px-6 py-4 text-sm font-medium text-center">
-                                                <a className="text-green-500 hover:text-green-700" href="#">
-                                                    Edit
-                                                </a>
-                                            </td>
-                                            <td className="px-6 py-4 text-sm font-medium text-center whitespace-nowrap">
-                                                <a className="text-red-500 hover:text-red-700" href="#">
-                                                    Delete
-                                                </a>
                                             </td>
                                         </tr>
                                     ))}

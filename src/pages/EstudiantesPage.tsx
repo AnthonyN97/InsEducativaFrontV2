@@ -4,43 +4,86 @@ import Formulario from "../components/Formulario";
 import { EstudianteService } from "../services/EstudiantesApi";
 import EstudianteForm from "../components/EstudianteForm";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const EstudiantesPage = () => {
     const [datos, setDatos] = useState<Estudiante[]>([]);
+    const [datosOriginales, setDatosOriginales] = useState<Estudiante[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [estudianteEditar, setEstudianteEditar] = useState<Estudiante | null>(null);
+    const [busqueda, setBusqueda] = useState<string>('');
 
     useEffect(() => {
-        EstudianteService.getEstudiantes().then((data) => setDatos(data));
+        actualizarDatos()
+        EstudianteService.getEstudiantes().then((data) => setDatosOriginales(data));
     }, [open]);
 
-    const handleDelete = (id: string) => {
-        EstudianteService.deleteEstudiantes(id)
-          .then(response => {
-            console.log(response);
-            toast.success('El estudiante ha sido eliminado con éxito!');
-            EstudianteService.getEstudiantes().then((data) => setDatos(data));
-          })
-          .catch(error => {
-            console.error(error);
-            toast.error('Hubo un error al eliminar el estudiante');
-          });
+    const actualizarDatos = () => {
+        EstudianteService.getEstudiantes().then((data) => setDatos(data));
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const consulta = event.target.value;
+        console.log(consulta);
+        setBusqueda(consulta);
+      
+        // Filtra los datos según la consulta de búsqueda
+        const datosFiltrados = datosOriginales.filter((dato) =>
+          dato.nombre.toLowerCase().includes(consulta.toLowerCase())
+        );
+      
+        // Actualiza el estado con los datos filtrados o todos los datos originales
+        setDatos(consulta ? datosFiltrados : datosOriginales);
       };
+
+    const handleDelete = (id: string) => {
+        Swal.fire({
+            title: 'Eliminar',
+            text: '¿Está seguro que desea borrar esta nota?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Borrar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                EstudianteService.deleteEstudiantes(id)
+                    .then(response => {
+                        console.log(response);
+                        toast.success('El estudiante ha sido eliminado con éxito!');
+                        EstudianteService.getEstudiantes().then((data) => setDatos(data));
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        toast.error('Hubo un error al eliminar el estudiante');
+                    });
+                actualizarDatos()
+                Swal.fire('Borrado', 'La nota ha sido eliminada con éxito', 'success');
+            } else {
+                Swal.fire('Cancelado', 'La nota no ha sido eliminada', 'info');
+            }
+        });
+
+    };
 
     return (
         <>
-            <div className="p-10 flex justify-center w-full">
+            <div className="px-8 py-2 flex justify-end w-full">
+                <input
+                    type="text"
+                    placeholder="Buscar alumnos"
+                    value={busqueda}
+                    onChange={handleSearch}
+                />
                 <button
                     className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white "
-                    onClick={() => {setOpen(true); setEstudianteEditar(null)}}
+                    onClick={() => { setOpen(true); setEstudianteEditar(null) }}
                 >
                     Crear Estudiante
                 </button>
                 <Formulario open={open} onClose={() => setOpen(false)}>
-                    <EstudianteForm open={open} estudiante={estudianteEditar} onClose={() => setOpen(false)}/>
+                    <EstudianteForm open={open} estudiante={estudianteEditar} onClose={() => setOpen(false)} />
                 </Formulario>
             </div>
-            <div className="flex flex-col p-5">
+            <div className="flex flex-col p-5 mx-5">
                 <div className="overflow-x-auto">
                     <div className="p-1.5 w-full inline-block align-middle">
                         <div className="overflow-x-auto border rounded-lg">
@@ -101,7 +144,7 @@ const EstudiantesPage = () => {
                                                 {dato.tipo_sangre}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
-                                                <button className="text-green-500 hover:text-green-700" onClick={()=>{setEstudianteEditar(dato); setOpen(true);}}>
+                                                <button className="text-green-500 hover:text-green-700" onClick={() => { setEstudianteEditar(dato); setOpen(true); }}>
                                                     Editar
                                                 </button>
                                             </td>

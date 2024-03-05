@@ -106,6 +106,18 @@ const EstudiantesPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
+                                            Grado
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
+                                        >
+                                            Sección
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
+                                        >
                                             Fecha de Nacimiento
                                         </th>
                                         <th
@@ -136,6 +148,12 @@ const EstudiantesPage = () => {
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
                                                 {dato.sexo}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
+                                                {dato.grado}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-800 text-center">
+                                                {dato.seccion}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
                                                 {dato.fecha_nacimiento}

@@ -11,6 +11,8 @@ type propTypes = {
 const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
     const [nombre, setNombre] = useState(estudiante ? estudiante.nombre : '');
     const [sexo, setSexo] = useState(estudiante ? estudiante.sexo : '');
+    const [grado, setGrado] = useState(estudiante ? estudiante.grado : '');
+    const [seccion, setSeccion] = useState(estudiante ? estudiante.seccion : '');
     const [fechaNacimiento, setFechaNacimiento] = useState(estudiante ? estudiante.fecha_nacimiento : '');
     const [tipoSangre, setTipoSangre] = useState(estudiante ? estudiante.tipo_sangre : '');
 
@@ -18,6 +20,8 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
         // Cuando el estudiante cambia, actualiza el estado del formulario
         setNombre(estudiante ? estudiante.nombre : '');
         setSexo(estudiante ? estudiante.sexo : '');
+        setGrado(estudiante ? estudiante.grado : '');
+        setSeccion(estudiante ? estudiante.seccion : '');
         setFechaNacimiento(estudiante ? estudiante.fecha_nacimiento : '');
         setTipoSangre(estudiante ? estudiante.tipo_sangre : '');
     }, [estudiante]);
@@ -25,6 +29,8 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
     const limpiar = () => {
         setNombre('')
         setSexo('')
+        setGrado('')
+        setSeccion('')
         setFechaNacimiento('')
         setTipoSangre('')
     }
@@ -34,6 +40,8 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
         var estudiantePost: EstudiantePost = {
             nombre: nombre,
             sexo: sexo,
+            grado: grado,
+            seccion: seccion,
             fecha_nacimiento: fechaNacimiento,
             tipo_sangre: tipoSangre
         }
@@ -73,6 +81,33 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
                             <option value="">Selecciona</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
+                        </select>
+                    </div>
+                    <div className="block">
+                        <span className="text-gray-700">Grado:</span>
+                        <select value={grado} onChange={(e) => setGrado(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
+                            <option value="">Selecciona</option>
+                            <option value="1ro de primaria">Primero de Primaria</option>
+                            <option value="2do de primaria">Segundo de Primaria</option>
+                            <option value="3ro de primaria">Tercero de Primaria</option>
+                            <option value="4to de primaria">Cuarto de Primaria</option>
+                            <option value="5to de primaria">Quinto de Primaria</option>
+                            <option value="6to de primaria">Sexto de Primaria</option>
+                            <option value="1ro de secundaria">Primero de Secundaria</option>
+                            <option value="2do de secundaria">Segundo de Secundaria</option>
+                            <option value="3ro de secundaria">Tercero de Secundaria</option>
+                            <option value="4to de secundaria">Cuarto de Secundaria</option>
+                            <option value="5to de secundaria">Quinto de Secundaria</option>
+                        </select>
+                    </div>
+                    <div className="block">
+                        <span className="text-gray-700">Sección:</span>
+                        <select value={seccion} onChange={(e) => setSeccion(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
+                            <option value="">Selecciona</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
                         </select>
                     </div>
                     <div className="block">

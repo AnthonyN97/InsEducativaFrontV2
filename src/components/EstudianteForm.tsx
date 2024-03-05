@@ -59,52 +59,54 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
     };
 
     return (
-        <div className="flex flex-col gap-4">
-            <h1 className="text-2xl text-center">Formulario</h1>
-            <div className="space-y-4">
-                <div className="block">
-                    <span className="text-gray-700">Nombre:</span>
-                    <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm" />
-                </div>
-                <div className="block">
-                    <span className="text-gray-700">Sexo:</span>
-                    <select value={sexo} onChange={(e) => setSexo(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
-                        <option value="">Selecciona</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                    </select>
-                </div>
-                <div className="block">
-                    <span className="text-gray-700">Fecha de Nacimiento:</span>
-                    <input type="date" value={fechaNacimiento} onChange={e => setFechaNacimiento(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm" />
-                </div>
-                <div className="block">
-                    <span className="text-gray-700">Tipo de Sangre:</span>
-                    <select value={tipoSangre} onChange={(e) => setTipoSangre(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
-                        <option value="">Selecciona</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                    </select>
-                </div>
+        <>
+            <div className="flex flex-col gap-4">
+                <h1 className="text-2xl text-center">Formulario</h1>
+                <div className="space-y-4">
+                    <div className="block">
+                        <span className="text-gray-700">Nombre:</span>
+                        <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm" />
+                    </div>
+                    <div className="block">
+                        <span className="text-gray-700">Sexo:</span>
+                        <select value={sexo} onChange={(e) => setSexo(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
+                            <option value="">Selecciona</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </div>
+                    <div className="block">
+                        <span className="text-gray-700">Fecha de Nacimiento:</span>
+                        <input type="date" value={fechaNacimiento} onChange={e => setFechaNacimiento(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm" />
+                    </div>
+                    <div className="block">
+                        <span className="text-gray-700">Tipo de Sangre:</span>
+                        <select value={tipoSangre} onChange={(e) => setTipoSangre(e.target.value)} className="py-2 mt-1 block w-full text-center rounded-md border-gray-300 shadow-sm">
+                            <option value="">Selecciona</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
 
-                <hr className="border-t-solid border-1 border-grey" />
-                <button onClick={handleSubmit} className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                    {estudiante ? "Editar" : "Crear"}
-                </button>
-            </div>
-            <div className="flex flex-col justify-center">
+                    <hr className="border-t-solid border-1 border-grey" />
+                    <button onClick={handleSubmit} className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                        {estudiante ? "Editar" : "Crear"}
+                    </button>
+                </div>
+                <div className="flex flex-col justify-center">
 
-                <button onClick={() => { onClose(); limpiar(); }} className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                    Cerrar
-                </button>
+                    <button onClick={() => { onClose(); limpiar(); }} className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                        Cerrar
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

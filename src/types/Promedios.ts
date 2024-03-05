@@ -1,5 +1,10 @@
+interface Promedio {
+  curso: string;
+  promedio: number;
+}
+
 export interface Promedios {
-    promedio: string;
+    id: string;
     estudiante: string;
-    curso: string;
+    promedio: Promedio[];
   }

@@ -8,6 +8,11 @@ const Header: React.FC = () => {
     { name: 'Promedios', href: '/promedios' },
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
+
   return (
     <>
       <nav className='bg-blue-900'>
@@ -20,6 +25,9 @@ const Header: React.FC = () => {
                 </div>
               </li>
             ))}
+            <button onClick={handleLogout} className="py-2 pl-3 pr-4 text-white">
+                Cerrar sesión
+              </button>
           </ul>
         </div>
       </nav>

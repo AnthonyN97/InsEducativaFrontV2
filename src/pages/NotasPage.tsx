@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Formulario from "../components/Formulario";
 import NotaForm from "../components/NotaForm";
 import Swal from "sweetalert2";
+import { CSVLink } from "react-csv";
 
 const NotasPage = () => {
     const [datos, setDatos] = useState<Nota[]>([]);
@@ -12,6 +13,12 @@ const NotasPage = () => {
     const [open, setOpen] = useState<boolean>(false);
     const [notaEditar, setNotaEditar] = useState<Nota | null>(null);
     const [busqueda, setBusqueda] = useState<string>('');
+    const headers = [
+        { label: 'Estudiante', key: 'estudiante' },
+        { label: 'Curso', key: 'curso' },
+        { label: 'Nota', key: 'nota' },
+        { label: 'Porcentaje', key: 'porcentaje' },
+    ];
 
     useEffect(() => {
         actualizarDatos()
@@ -26,15 +33,15 @@ const NotasPage = () => {
         const consulta = event.target.value;
         console.log(consulta);
         setBusqueda(consulta);
-      
+
         // Filtra los datos según la consulta de búsqueda
         const datosFiltrados = datosOriginales.filter((dato) =>
-          dato.estudiante.toLowerCase().includes(consulta.toLowerCase())
+            dato.estudiante.toLowerCase().includes(consulta.toLowerCase())
         );
-      
+
         // Actualiza el estado con los datos filtrados o todos los datos originales
         setDatos(consulta ? datosFiltrados : datosOriginales);
-      };
+    };
 
     const handleDelete = (idNota: string, idEstudiante: string) => {
         Swal.fire({
@@ -78,6 +85,13 @@ const NotasPage = () => {
                 >
                     Crear Nota
                 </button>
+                <button
+                    className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white ">
+                    <CSVLink data={datos} headers={headers} filename={"notas.csv"}>
+                    Descargar CSV
+                    </CSVLink>
+                </button>
+                
                 <Formulario open={open} onClose={() => setOpen(false)}>
                     <NotaForm open={open} nota={notaEditar} onClose={() => setOpen(false)} actualizarDatos={actualizarDatos} />
                 </Formulario>
@@ -186,6 +200,7 @@ const NotasPage = () => {
                     ))}
                 </div>
             </div>
+
         </>
     );
 }

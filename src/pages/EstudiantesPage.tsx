@@ -5,6 +5,7 @@ import { EstudianteService } from "../services/EstudiantesApi";
 import EstudianteForm from "../components/EstudianteForm";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { CSVLink } from "react-csv";
 
 const EstudiantesPage = () => {
     const [datos, setDatos] = useState<Estudiante[]>([]);
@@ -12,6 +13,14 @@ const EstudiantesPage = () => {
     const [open, setOpen] = useState<boolean>(false);
     const [estudianteEditar, setEstudianteEditar] = useState<Estudiante | null>(null);
     const [busqueda, setBusqueda] = useState<string>('');
+    const headers = [
+        { label: 'Nombre', key: 'nombre' },
+        { label: 'Sexo', key: 'sexo' },
+        { label: 'Grado', key: 'grado' },
+        { label: 'Seccion', key: 'seccion' },
+        { label: 'Fecha de Nac.', key: 'fecha_nacimiento' },
+        { label: 'Tipo de Sangre', key: 'tipo_sangre' },
+    ];
 
     useEffect(() => {
         actualizarDatos()
@@ -78,6 +87,12 @@ const EstudiantesPage = () => {
                     onClick={() => { setOpen(true); setEstudianteEditar(null) }}
                 >
                     Crear Estudiante
+                </button>
+                <button
+                    className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white ">
+                    <CSVLink data={datos} headers={headers} filename={"notas.csv"}>
+                    Descargar CSV
+                    </CSVLink>
                 </button>
                 <Formulario open={open} onClose={() => setOpen(false)}>
                     <EstudianteForm open={open} estudiante={estudianteEditar} onClose={() => setOpen(false)} />

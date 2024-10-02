@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { api, API_URL } from './api';
+import { API_URL } from './api';
 import { DatosEstudiante } from '../types/BusquedaDatosEstudiante';
 
 export class NotaPromIDService {

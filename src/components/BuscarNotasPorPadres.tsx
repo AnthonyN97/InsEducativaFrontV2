@@ -37,6 +37,7 @@ const BuscarNotasPorPadres = () => {
             >
                 Buscar
             </button>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
             <Formulario open={open} onClose={() => setOpen(false)} >
                 <MostrarNotasPadres open={open} onClose={() => setOpen(false)} datosEstudianteNotasProm={datos}/>
             </Formulario>

@@ -21,6 +21,18 @@ const EstudiantesPage = () => {
         { label: 'Fecha de Nac.', key: 'fecha_nacimiento' },
         { label: 'Tipo de Sangre', key: 'tipo_sangre' },
     ];
+    //seccion de paginado
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 5;
+    const offset = currentPage * itemsPerPage;
+    const currentItems = datos.slice(offset, offset + itemsPerPage);
+
+    const totalPages = Math.ceil(datos.length / itemsPerPage);
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+    //seccion de paginado terminada
 
     useEffect(() => {
         actualizarDatos()
@@ -35,15 +47,15 @@ const EstudiantesPage = () => {
         const consulta = event.target.value;
         console.log(consulta);
         setBusqueda(consulta);
-      
+
         // Filtra los datos según la consulta de búsqueda
         const datosFiltrados = datosOriginales.filter((dato) =>
-          dato.nombre.toLowerCase().includes(consulta.toLowerCase())
+            dato.nombre.toLowerCase().includes(consulta.toLowerCase())
         );
-      
+
         // Actualiza el estado con los datos filtrados o todos los datos originales
         setDatos(consulta ? datosFiltrados : datosOriginales);
-      };
+    };
 
     const handleDelete = (id: string) => {
         Swal.fire({
@@ -91,7 +103,7 @@ const EstudiantesPage = () => {
                 <button
                     className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white ">
                     <CSVLink data={datos} headers={headers} filename={"notas.csv"}>
-                    Descargar CSV
+                        Descargar CSV
                     </CSVLink>
                 </button>
                 <Formulario open={open} onClose={() => setOpen(false)}>
@@ -156,7 +168,7 @@ const EstudiantesPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
-                                    {datos.map((dato: any, index: number) => (
+                                    {currentItems.map((dato: any, index: number) => (
                                         <tr key={index}>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-left ">
                                                 {dato.nombre}
@@ -192,6 +204,19 @@ const EstudiantesPage = () => {
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className="container mx-auto p-4">
+                <div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handlePageChange(index)}
+                            className={index === currentPage ? 'px-4 py-2 mx-1 text-white bg-blue-700 rounded' : 'px-4 py-2 mx-1 text-white bg-blue-500 rounded hover:bg-blue-700'}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
                 </div>
             </div>
         </>

@@ -59,36 +59,38 @@ const CursosPage = () => {
                     <CursoForm open={open} curso={cursoEditar} actualizarDatos={actualizarDatos} onClose={() => setOpen(false)} />
                 </Formulario>
             </div>
-            {datos.map((dato: any, index: number) => (
-                <div className="container mx-auto p-4">
-                    <div className="card bg-sky-200 m-5 shadow-lg rounded-lg border-8 border-blue-500">
-                        <div className="card-header p-4 text-2xl font-bold text-center uppercase">Nombre: {dato.nombre}</div>
-                        <div className="card-header p-4 text-2xl font-bold text-center uppercase">Estudiantes:</div>
-                        {dato.estudiantes.length > 0 ? (
-                            <div className="card-body p-4 grid grid-cols-3 gap-4">
-                                {dato.estudiantes.map((estudiante: any, index: number) => (
-                                    <div className="student bg-white rounded-lg border border-gray-300">
-                                        <div className="student-name p-2 text-xl font-medium text-center">{estudiante.nombre}</div>
-                                    </div>
-                                ))}
-                            </div>) : (
-                            <p className="text-center">Ningun estudiante tiene notas en este curso</p>
-                        )}
-                        <div className="flex justify-end p-2">
-                            <button
-                                className="bg-green-500 hover:bg-green-600 text-white rounded-full px-4 h-8 mr-2"
-                                onClick={() => { setCursoEditar(dato); setOpen(true); }} >
-                                Editar
-                            </button>
-                            <button
-                                className="bg-red-500 hover:bg-red-600 text-white rounded-full px-4 h-8"
-                                onClick={() => handleDelete(dato.id)}>
-                                Eliminar
-                            </button>
+            <div className="flex flex-wrap">
+                {datos.map((dato: any, index: number) => (
+                    <div className="container mx-auto p-4 basis-1/2">
+                        <div className="card bg-sky-200 m-5 shadow-lg rounded-lg border-8 border-blue-500">
+                            <div className="card-header p-4 text-2xl font-bold text-center uppercase">Nombre: {dato.nombre}</div>
+                            <div className="card-header p-4 text-2xl font-bold text-center uppercase">Estudiantes:</div>
+                            {dato.estudiantes.length > 0 ? (
+                                <div className="card-body p-4 grid grid-cols-3 gap-4">
+                                    {dato.estudiantes.map((estudiante: any, index: number) => (
+                                        <div className="student bg-white rounded-lg border border-gray-300">
+                                            <div className="student-name p-2 text-xl font-medium text-center">{estudiante.nombre}</div>
+                                        </div>
+                                    ))}
+                                </div>) : (
+                                <p className="text-center">Ningun estudiante tiene notas en este curso</p>
+                            )}
+                            <div className="flex justify-end p-2">
+                                <button
+                                    className="bg-green-500 hover:bg-green-600 text-white rounded-full px-4 h-8 mr-2"
+                                    onClick={() => { setCursoEditar(dato); setOpen(true); }} >
+                                    Editar
+                                </button>
+                                <button
+                                    className="bg-red-500 hover:bg-red-600 text-white rounded-full px-4 h-8"
+                                    onClick={() => handleDelete(dato.id)}>
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </>
     );
 }

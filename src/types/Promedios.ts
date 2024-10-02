@@ -5,6 +5,8 @@ interface Promedio {
 
 export interface Promedios {
     id: string;
-    estudiante: string;
-    promedio: Promedio[];
+    nombre: string;
+    seccion: string;
+    grado: string;
+    promedios: Promedio[];
   }

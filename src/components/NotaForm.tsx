@@ -46,11 +46,10 @@ const NotaForm: React.FC<propTypes> = ({ onClose, nota, actualizarDatos}) => {
             curso: Number(curso),
             porcentaje: Number(porcentaje)
         }
-        console.log(notaPost)
+
         if (nota) {
             // Accion para editar
             NotaService.putNota(nota.id, notaPost).then(response => {
-                console.log(response);
                 toast.success('La nota ha sido editado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al editar la nota');
@@ -58,7 +57,6 @@ const NotaForm: React.FC<propTypes> = ({ onClose, nota, actualizarDatos}) => {
         } else {
             // Accion para crear
             NotaService.postNota(notaPost).then(response => {
-                console.log(response);
                 toast.success('La nota ha sido creado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al crear la nota');

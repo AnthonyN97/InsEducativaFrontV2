@@ -45,7 +45,6 @@ const EstudiantesPage = () => {
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const consulta = event.target.value;
-        console.log(consulta);
         setBusqueda(consulta);
 
         // Filtra los datos según la consulta de búsqueda
@@ -63,12 +62,14 @@ const EstudiantesPage = () => {
             text: '¿Está seguro que desea borrar esta nota?',
             icon: 'question',
             showCancelButton: true,
+            confirmButtonColor: '#28A745',
+            cancelButtonColor: '#DC3545',
             confirmButtonText: 'Borrar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 EstudianteService.deleteEstudiantes(id)
                     .then(response => {
-                        console.log(response);
                         toast.success('El estudiante ha sido eliminado con éxito!');
                         EstudianteService.getEstudiantes().then((data) => setDatos(data));
                     })
@@ -77,9 +78,19 @@ const EstudiantesPage = () => {
                         toast.error('Hubo un error al eliminar el estudiante');
                     });
                 actualizarDatos()
-                Swal.fire('Borrado', 'La nota ha sido eliminada con éxito', 'success');
+                Swal.fire({
+                    title: 'Borrado',
+                    text: 'El estudiante ha sido borrado con éxito',
+                    icon: 'success',
+                    confirmButtonColor: '#28A745',
+                  })
             } else {
-                Swal.fire('Cancelado', 'La nota no ha sido eliminada', 'info');
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'El estudiante no ha sido borrado',
+                    icon: 'info',
+                    confirmButtonColor: '#28A745',
+                  })
             }
         });
 

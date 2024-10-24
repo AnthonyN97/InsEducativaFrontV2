@@ -25,7 +25,6 @@ const PromediosPage = () => {
     useEffect(() => {
         actualizarDatos()
         PromedioService.getPromedio().then((data: Promedios[]) => {
-            console.log('Datos obtenidos:', data); // Verifica los datos obtenidos
             setDatosOriginales(data);
             const transformedData = data.flatMap(dato =>
                 dato.promedios ? dato.promedios.map(promedio => ({
@@ -36,8 +35,6 @@ const PromediosPage = () => {
                     promedio: promedio.promedio
                 })) : []
             );
-
-            console.log('Datos transformados:', transformedData); // Verifica los datos transformados
             setDatosCSV(transformedData);
         })
             .catch(error => console.log(error));
@@ -115,7 +112,7 @@ const PromediosPage = () => {
                                                 </>
                                             )}
                                             <td className="py-2 px-4 border-b border-gray-300">{promedio.curso}</td>
-                                            <td className="py-2 px-4 border-b border-gray-300">{promedio.promedio}</td>
+                                            <td className="py-2 px-4 border-b border-gray-300">{parseFloat(promedio.promedio).toFixed(2)}</td>
                                         </tr>
                                     ))
                                 ) : (

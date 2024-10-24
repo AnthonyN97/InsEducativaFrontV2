@@ -6,6 +6,7 @@ import Formulario from "../components/Formulario";
 import NotaForm from "../components/NotaForm";
 import Swal from "sweetalert2";
 import { CSVLink } from "react-csv";
+import FileUpload from "../components/FileUpdate";
 
 const NotasPage = () => {
     const [datos, setDatos] = useState<Nota[]>([]);
@@ -42,7 +43,6 @@ const NotasPage = () => {
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const consulta = event.target.value;
-        console.log(consulta);
         setBusqueda(consulta);
 
         // Filtra los datos según la consulta de búsqueda
@@ -60,25 +60,37 @@ const NotasPage = () => {
             text: '¿Está seguro que desea borrar esta nota?',
             icon: 'question',
             showCancelButton: true,
+            confirmButtonColor: '#28A745',
+            cancelButtonColor: '#DC3545',
             confirmButtonText: 'Borrar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 NotaService.deleteNota(idNota, idEstudiante)
                     .then(response => {
-                        console.log(response);
                         toast.success('La nota ha sido eliminado con éxito!');
                     })
                     .catch(error => {
                         console.error(error);
                         toast.error('Hubo un error al eliminar la nota');
                     });
-                actualizarDatos()
-                Swal.fire('Borrado', 'La nota ha sido eliminada con éxito', 'success');
+                Swal.fire({
+                    title: 'Borrado',
+                    text: 'La nota ha sido eliminada con éxito',
+                    icon: 'success',
+                    confirmButtonColor: '#28A745',
+                  })
+                  actualizarDatos()
             } else {
-                Swal.fire('Cancelado', 'La nota no ha sido eliminada', 'info');
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'La nota no ha sido eliminada',
+                    icon: 'info',
+                    confirmButtonColor: '#28A745',
+                  })
             }
         });
-
+        actualizarDatos();
     };
 
     return (
@@ -106,6 +118,7 @@ const NotasPage = () => {
                 <Formulario open={open} onClose={() => setOpen(false)}>
                     <NotaForm open={open} nota={notaEditar} onClose={() => setOpen(false)} actualizarDatos={actualizarDatos} />
                 </Formulario>
+                <FileUpload></FileUpload>
 
             </div>
 

@@ -25,22 +25,34 @@ const CursosPage = () => {
             text: '¿Está seguro que desea borrar esta nota?',
             icon: 'question',
             showCancelButton: true,
+            confirmButtonColor: '#28A745',
+            cancelButtonColor: '#DC3545',
             confirmButtonText: 'Borrar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 CursoService.deleteCurso(id)
                     .then(response => {
-                        console.log(response);
                         toast.success('El curso ha sido eliminado con éxito!');
                     })
                     .catch(error => {
                         console.error(error);
                         toast.error('Hubo un error al eliminar el curso');
                     });
+                Swal.fire({
+                    title: 'Borrado',
+                    text: 'El curso ha sido eliminada con éxito',
+                    icon: 'success',
+                    confirmButtonColor: '#28A745',
+                })
                 actualizarDatos()
-                Swal.fire('Borrado', 'La nota ha sido eliminada con éxito', 'success');
             } else {
-                Swal.fire('Cancelado', 'La nota no ha sido eliminada', 'info');
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'El curso no ha sido eliminado',
+                    icon: 'info',
+                    confirmButtonColor: '#28A745',
+                })
             }
         });
 
@@ -61,15 +73,15 @@ const CursosPage = () => {
             </div>
             <div className="flex flex-wrap">
                 {datos.map((dato: any, index: number) => (
-                    <div className="container mx-auto p-4 basis-1/2">
-                        <div className="card bg-sky-200 m-5 shadow-lg rounded-lg border-8 border-blue-500">
-                            <div className="card-header p-4 text-2xl font-bold text-center uppercase">Nombre: {dato.nombre}</div>
-                            <div className="card-header p-4 text-2xl font-bold text-center uppercase">Estudiantes:</div>
+                    <div key={index} className="container mx-auto p-4 basis-1/2">
+                        <div key={"group"+index} className="card bg-sky-200 m-5 shadow-lg rounded-lg border-8 border-blue-500">
+                            <div key={"nombre"+index} className="card-header p-4 text-2xl font-bold text-center uppercase">Nombre: {dato.nombre}</div>
+                            <div key={"estudiantes"+index} className="card-header p-4 text-2xl font-bold text-center uppercase">Estudiantes:</div>
                             {dato.estudiantes.length > 0 ? (
                                 <div className="card-body p-4 grid grid-cols-3 gap-4">
-                                    {dato.estudiantes.map((estudiante: any, index: number) => (
-                                        <div className="student bg-white rounded-lg border border-gray-300">
-                                            <div className="student-name p-2 text-xl font-medium text-center">{estudiante.nombre}</div>
+                                    {dato.estudiantes.map((estudiante: any, estudianteindex: number) => (
+                                        <div key={estudianteindex+"first"} className="bg-white rounded-lg border border-gray-300">
+                                            <div key={estudianteindex} className="p-2 text-xl font-medium text-center">{estudiante.nombre}</div>
                                         </div>
                                     ))}
                                 </div>) : (

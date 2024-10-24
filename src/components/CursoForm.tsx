@@ -13,7 +13,6 @@ type propTypes = {
 };
 
 const CursoForm: React.FC<propTypes> = ({ onClose, curso, actualizarDatos}) => {
-    console.log(curso)
     const [nombre, setNombre] = useState(curso ? curso.nombre : '');
     const [estudiante, setEstudiante] = useState<string[]>([]);
     const [estudiantes, setEstudiantes] = useState<Estudiante[]>([])
@@ -41,7 +40,6 @@ const CursoForm: React.FC<propTypes> = ({ onClose, curso, actualizarDatos}) => {
         if (curso) {
             // Accion para editar
             CursoService.putCurso(curso.id, cursoPost).then(response => {
-                console.log(response);
                 toast.success('El curso ha sido editado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al editar el curso');
@@ -49,7 +47,6 @@ const CursoForm: React.FC<propTypes> = ({ onClose, curso, actualizarDatos}) => {
         } else {
             // Accion para crear
             CursoService.postCurso(cursoPost).then(response => {
-                console.log(response);
                 toast.success('El curso ha sido creado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al crear el curso');

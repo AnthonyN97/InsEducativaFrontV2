@@ -48,7 +48,6 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
         if (estudiante) {
             // Accion para editar
             EstudianteService.putEstudiantes(estudiante.id, estudiantePost).then(response => {
-                console.log(response);
                 toast.success('El estudiante ha sido editado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al editar el estudiante');
@@ -56,7 +55,6 @@ const EstudianteForm: React.FC<propTypes> = ({ onClose, estudiante }) => {
         } else {
             // Accion para crear
             EstudianteService.postEstudiantes(estudiantePost).then(response => {
-                console.log(response);
                 toast.success('El estudiante ha sido creado con éxito!');
             }).catch(error => {
                 toast.error('Hubo un error al crear el estudiante');

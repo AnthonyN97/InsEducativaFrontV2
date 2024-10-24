@@ -24,7 +24,7 @@ export class CursoService {
 
   public static async putCurso(idCurso: string,curso: CursoPost): Promise<CursoPost|null> {
     try {
-      const response = await api.put(`${API_URL}/curso`+idCurso, curso);
+      const response = await api.put(`${API_URL}/curso/`+idCurso, curso);
       return response.data as CursoPost;
     } catch (error) {
       console.warn("Hubo un problema: ", error);
@@ -34,7 +34,7 @@ export class CursoService {
   
   public static async deleteCurso(id: string): Promise<Curso|null> {
     try {
-      const response = await api.delete(`${API_URL}/curso`+id);
+      const response = await api.delete(`${API_URL}/curso/`+id);
       return response.data as Curso;
     } catch (error) {
       console.warn("Hubo un problema: ", error);

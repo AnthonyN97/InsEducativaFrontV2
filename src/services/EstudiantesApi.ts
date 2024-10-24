@@ -24,7 +24,7 @@ export class EstudianteService {
 
   public static async putEstudiantes(id: string,estudiante: EstudiantePost): Promise<Estudiante|null> {
     try {
-      const response = await api.put(`${API_URL}/estudiante`+id, estudiante);
+      const response = await api.put(`${API_URL}/estudiante/`+id, estudiante);
       return response.data as Estudiante;
     } catch (error) {
       console.warn("Hubo un problema: ", error);
@@ -34,7 +34,7 @@ export class EstudianteService {
   
   public static async deleteEstudiantes(id: string): Promise<Estudiante|null> {
     try {
-      const response = await api.delete(`${API_URL}/estudiante`+id);
+      const response = await api.delete(`${API_URL}/estudiante/`+id);
       return response.data as Estudiante;
     } catch (error) {
       console.warn("Hubo un problema: ", error);

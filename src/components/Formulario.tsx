@@ -12,7 +12,7 @@ const Formulario: React.FC<propTypes> = ({ open, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className={`w-3/5 bg-white rounded-lg shadow p-6 transition-all max-w-2xl ${open ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}
+        className={`w-3/5 h-5/6 bg-white overflow-y-auto rounded-lg shadow p-6 transition-all max-w-2xl ${open ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}
         onClick={(e) => e.stopPropagation()}
       >
 

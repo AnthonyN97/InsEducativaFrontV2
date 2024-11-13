@@ -37,7 +37,8 @@ const FileUpload: React.FC = () => {
                 estudiante: item["Estudiante"],
                 curso: item["Curso"],
                 nota: Number(item["Nota"]) || 0,
-                porcentaje: Number(item["Porcentaje"]) || 0
+                porcentaje: Number(item["Porcentaje"]) || 0,
+                descripcion: item["Descripcion"]
             }));
 
             setJsonData(formattedData);
@@ -95,6 +96,7 @@ const FileUpload: React.FC = () => {
                                 <th className="px-4 py-2 border">Curso</th>
                                 <th className="px-4 py-2 border">Nota</th>
                                 <th className="px-4 py-2 border">Porcentaje</th>
+                                <th className="px-4 py-2 border">Descripción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,6 +106,7 @@ const FileUpload: React.FC = () => {
                                     <td className="px-4 py-2 border">{nota.curso}</td>
                                     <td className="px-4 py-2 border">{nota.nota}</td>
                                     <td className="px-4 py-2 border">{nota.porcentaje}%</td>
+                                    <td className="px-4 py-2 border">{nota.descripcion}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -6,6 +6,7 @@ export interface Nota {
     curso: string;
     nota: number;
     porcentaje: number;
+    descripcion: string;
   }
 
 export interface NotaPost {
@@ -13,4 +14,5 @@ export interface NotaPost {
     curso: number;
     nota: number;
     porcentaje: number;
+    descripcion: string;
   }

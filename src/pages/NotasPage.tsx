@@ -19,15 +19,15 @@ const NotasPage = () => {
         { label: 'Curso', key: 'curso' },
         { label: 'Nota', key: 'nota' },
         { label: 'Porcentaje', key: 'porcentaje' },
+        { label: 'Descripcion', key: 'descripcion' },
     ];
     //seccion de paginado
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
     const offset = currentPage * itemsPerPage;
     const currentItems = datos.slice(offset, offset + itemsPerPage);
 
     const totalPages = Math.ceil(datos.length / itemsPerPage);
-
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     };
@@ -79,15 +79,15 @@ const NotasPage = () => {
                     text: 'La nota ha sido eliminada con éxito',
                     icon: 'success',
                     confirmButtonColor: '#28A745',
-                  })
-                  actualizarDatos()
+                })
+                actualizarDatos()
             } else {
                 Swal.fire({
                     title: 'Cancelado',
                     text: 'La nota no ha sido eliminada',
                     icon: 'info',
                     confirmButtonColor: '#28A745',
-                  })
+                })
             }
         });
         actualizarDatos();
@@ -157,6 +157,12 @@ const NotasPage = () => {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
                                         >
+                                            Descripción
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase "
+                                        >
                                             Editar
                                         </th>
                                         <th
@@ -181,6 +187,10 @@ const NotasPage = () => {
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 text-center">
                                                 {dato.porcentaje}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-gray-800 text-center max-w-xs">
+                                                {dato.descripcion}
+
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-center">
                                                 <button className="text-green-500 hover:text-green-700" onClick={() => { setNotaEditar(dato); setOpen(true); }}>

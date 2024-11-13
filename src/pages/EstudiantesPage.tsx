@@ -113,7 +113,7 @@ const EstudiantesPage = () => {
                 </button>
                 <button
                     className="border border-neutral-300 rounded-lg py-1.5 px-10 my-2 bg-blue-500 hover:bg-blue-600 text-white ">
-                    <CSVLink data={datos} headers={headers} filename={"notas.csv"}>
+                    <CSVLink data={datos} headers={headers} filename={"estudiantes.csv"}>
                         Descargar CSV
                     </CSVLink>
                 </button>
